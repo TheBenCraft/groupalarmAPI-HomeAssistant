@@ -1,0 +1,12 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "token": "Personal-Access-Token",
+          "org_id": "Organization-ID"
+        }
+      }
+    }
+  }
+}

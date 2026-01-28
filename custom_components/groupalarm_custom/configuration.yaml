@@ -1,0 +1,179 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+#modbus: !include modbus.yaml
+
+
+template:
+#######
+############ E-Mail Zeugs
+#######
+  - trigger:
+      - trigger: event
+        event_type: "imap_content"
+    sensor:
+      - name: imap_content
+        icon: mdi:mailbox-up
+        state: "{{ trigger.event.data['subject'] }}"
+        attributes:
+          Entry: "{{ trigger.event.data['entry_id'] }}"
+          UID: "{{ trigger.event.data['uid'] }}"
+          Message: "{{ trigger.event.data['text'] }}"
+          Server: "{{ trigger.event.data['server'] }}"
+          Username: "{{ trigger.event.data['username'] }}"
+          Search: "{{ trigger.event.data['search'] }}"
+          Folder: "{{ trigger.event.data['folder'] }}"
+          Sender: "{{ trigger.event.data['sender'] }}"
+          Date: "{{ trigger.event.data['date'] }}"
+          Subject: "{{ trigger.event.data['subject'] }}"
+          Initial: "{{ trigger.event.data['initial'] }}"
+          To: "{{ trigger.event.data['headers'].get('Delivered-To', ['n/a'])[0] }}"
+          Return-Path: "{{ trigger.event.data['headers'].get('Return-Path',['n/a'])[0] }}"
+          Received-first: "{{ trigger.event.data['headers'].get('Received',['n/a'])[0] }}"
+          Received-last: "{{ trigger.event.data['headers'].get('Received',['n/a'])[-1] }}"
+
+  - binary_sensor:
+      # 2. Sensor: Ist der Alarm aktuell? (An/Aus)
+      - name: "GroupAlarm Aktiv"
+        unique_id: groupalarm_is_active
+        device_class: safety
+        state: >
+          {# Prüft, ob der Hauptsensor einen Einsatz zeigt und ob dieser nicht älter als 2 Stunden ist #}
+          {% set last_alarm = state_attr('sensor.groupalarm_einsatz', 'createdAt') %}
+          {% if states('sensor.groupalarm_einsatz') != 'Kein Einsatz' and last_alarm is not none %}
+            {% set alarm_time = as_timestamp(last_alarm) %}
+            {% set now_time = as_timestamp(now()) %}
+            {{ (now_time - alarm_time) < 7200 }} 
+          {% else %}
+            false
+          {% endif %}
+
+  - sensor:
+      - name: "GroupAlarm Einsatztext"
+        unique_id: groupalarm_einsatztext_modern
+        icon: mdi:message-text
+        # Der Hauptzustand (State) zeigt die Nachricht an
+        state: >
+          {% set alarms = state_attr('sensor.groupalarm_alarm', 'alarms') %}
+          {% if alarms is not none and alarms | length > 0 %}
+            {# Kürzung auf 250 Zeichen für die Anzeige im State #}
+            {{ alarms[0].message[:250] }}
+          {% else %}
+            {# Behält den letzten Text bei, wenn aktuell kein Alarm vorliegt #}
+            {{ this.state if this.state not in ['unknown', 'unavailable', 'None'] else 'Noch kein Alarm empfangen' }}
+          {% endif %}
+        # In den Attributen speichern wir den VOLLEN Text (falls die Nachricht > 255 Zeichen ist)
+        attributes:
+          komplette_nachricht: >
+            {% set alarms = state_attr('sensor.groupalarm_alarm', 'alarms') %}
+            {% if alarms is not none and alarms | length > 0 %}
+              {{ alarms[0].message }}
+            {% else %}
+              {{ state_attr('sensor.groupalarm_einsatztext', 'komplette_nachricht') }}
+            {% endif %}
+
+sensor:
+  - platform: waste_collection_schedule
+    source_index: 0
+    name: Next Abfall
+    details_format: upcoming
+    count: 1
+    leadtime: 1
+    value_template: '{{value.types|join(", ")}}{% if value.daysTo == 0 %} Heute{% elif value.daysTo == 1 %} Morgen{% else %} in {{value.daysTo}} tagen{% endif %}'
+    date_template: 0
+    types:
+      - Restabfall
+      - Altpapier
+      - Bioabfall
+      - Sommerbiotonne
+      - Leichtverpackungen
+  - platform: waste_collection_schedule
+    source_index: 0
+    name: Abfall-Sensor
+    details_format: upcoming
+    count: 1
+    leadtime: 1
+    value_template: '{{value.types|join(", ")}}'
+    date_template: 0
+    types:
+      - Restabfall
+      - Altpapier
+      - Bioabfall
+      - Sommerbiotonne
+      - Leichtverpackungen
+
+  - platform: rest
+    name: "GroupAlarm Alarm"
+    resource: "https://app.groupalarm.com/api/v1/alarms/alarmed"
+    method: GET
+    headers:
+      Personal-Access-Token: "MzcwNTEuOTcwY2YzNjUtOWRmZC01ODNmLTRjYmMtODQ4NTdjYTY0NTUw"
+      Organization-ID: "15851"
+      Content-Type: "application/json"
+    value_template: >
+      {% if value_json.alarms is defined and value_json.alarms | length > 0 %}
+        {{ value_json.alarms[0].eventName }}
+      {% else %}
+        Kein Einsatz
+      {% endif %}
+    # Wir nehmen hier die ganze Antwort und filtern im Template-Sensor
+    json_attributes:
+      - alarms
+    scan_interval: 30
+      
+logbook:
+  exclude:
+    entities:
+      - light.wled_hexawall
+      - light.wled_hexawall_segment_1
+      - light.wled_hexawall_segment_2
+      - light.wled_hexawall_segment_3
+      - light.wled_hexawall_segment_4
+      - light.wled_hexawall_segment_5
+      - light.wled_hexawall_segment_6
+      - select.wled_hexawall_voreinstellung
+      - select.wled_hexawall_wiedergabeliste
+      - number.wled_hexawall_segment_1_geschwindigkeit
+      - number.wled_hexawall_segment_1_intensitat
+      - number.wled_hexawall_segment_2_geschwindigkeit
+      - number.wled_hexawall_segment_2_intensitat
+      - number.wled_hexawall_segment_3_geschwindigkeit
+      - number.wled_hexawall_segment_3_intensitat
+      - number.wled_hexawall_segment_4_geschwindigkeit
+      - number.wled_hexawall_segment_4_intensitat
+      - number.wled_hexawall_segment_5_geschwindigkeit
+      - number.wled_hexawall_segment_5_intensitat
+      - number.wled_hexawall_segment_6_geschwindigkeit
+      - number.wled_hexawall_segment_6_intensitat
+      - number.wled_hexawall_geschwindigkeit
+      - number.wled_hexawall_intensitat
+      - switch.wled_hexawall_segment_1_umkehren
+      - switch.wled_hexawall_segment_2_umkehren
+      - switch.wled_hexawall_segment_3_umkehren
+      - switch.wled_hexawall_segment_4_umkehren
+      - switch.wled_hexawall_segment_5_umkehren
+      - switch.wled_hexawall_segment_6_umkehren
+      - select.wled_hexawall_segment_1_farbpalette
+      - select.wled_hexawall_segment_2_farbpalette
+      - select.wled_hexawall_segment_3_farbpalette
+      - select.wled_hexawall_segment_4_farbpalette
+      - select.wled_hexawall_segment_5_farbpalette
+      - select.wled_hexawall_segment_6_farbpalette
+      - switch.blaulicht
+
+
+
+waste_collection_schedule:
+  sources:
+    - name: ics
+      args:
+        url: https://kundenlogin.aws-shg.de/WasteManagementSchaumburg/WasteManagementServiceServlet?ApplicationName=Calendar&SubmitAction=sync&StandortID=399098001&AboID=381211&Fra=P;R;B;S;V&Tag=1&Zeit=6
+
