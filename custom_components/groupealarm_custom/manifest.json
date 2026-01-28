@@ -1,0 +1,10 @@
+{
+  "domain": "groupalarm_custom",
+  "name": "GroupAlarm Personal",
+  "version": "1.0.0",
+  "documentation": "https://github.com/",
+  "dependencies": [],
+  "codeowners": [],
+  "iot_class": "cloud_polling",
+  "config_flow": true
+}
