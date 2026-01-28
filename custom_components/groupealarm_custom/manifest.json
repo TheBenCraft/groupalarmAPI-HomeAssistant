@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "documentation": "https://github.com/TheBenCraft/groupalarmAPI-HomeAssistant.git",
   "dependencies": [],
-  "codeowners": ["@thebencraft"],
+  "codeowners": ["@TheBenCraft"],
   "iot_class": "cloud_polling",
   "config_flow": true
 }
