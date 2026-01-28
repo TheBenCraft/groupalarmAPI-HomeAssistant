@@ -1,6 +1,9 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+{
+  "domain": "groupalarm_custom",
+  "name": "GroupAlarm Personal",
+  "version": "1.0.0",
+  "documentation": "https://github.com/DEIN_USER/DEIN_REPO",
+  "dependencies": [],
+  "codeowners": ["@dein_name"],
+  "iot_class": "cloud_polling"
 }
