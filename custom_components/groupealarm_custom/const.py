@@ -1,1 +1,0 @@
-DOMAIN = "groupalarm_custom"
