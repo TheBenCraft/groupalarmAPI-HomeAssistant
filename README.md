@@ -5,7 +5,7 @@ Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAl
 ## Features
 - 🚀 **Echtzeit-nah:** Standard-Abfrageintervall von 30 Sekunden.
 - 📬 **Alarmtext:** Extrahiert die Einsatzmeldung direkt in die Sensor-Attribute.
-- 📅 **Status-Anzeige:** Kombiniert Einsatzname und Zeitstempel im Hauptstatus.
+- 📅 **Status-Anzeige:** Einsatzname im Hauptstatus.
 - 🛠 **Einfache Einrichtung:** Konfiguration direkt über die Home Assistant Benutzeroberfläche (Config Flow).
 - 💾 **Persistent:** Der letzte Alarmtext bleibt erhalten, auch wenn aktuell kein Einsatz aktiv ist.
 
