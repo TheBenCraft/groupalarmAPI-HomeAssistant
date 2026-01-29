@@ -14,7 +14,7 @@ Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAl
 ### Über HACS (Empfohlen)
 1. Öffne **HACS** in deinem Home Assistant.
 2. Klicke oben rechts auf die drei Punkte und wähle **Benutzerdefinierte Repositories**.
-3. Füge die URL dieses Repositories hinzu: `https://github.com/DEIN_BENUTZERNAME/DEIN_REPO_NAME](https://github.com/TheBenCraft/groupalarmAPI-HomeAssistant.git)`
+3. Füge die URL dieses Repositories hinzu: `https://github.com/TheBenCraft/groupalarmAPI-HomeAssistant.git`
 4. Wähle als Typ **Integration** und klicke auf **Hinzufügen**.
 5. Suche nach "GroupAlarm Personal" und klicke auf **Herunterladen**.
 6. Starte Home Assistant neu.
