@@ -1,4 +1,4 @@
-# 📟 GroupAlarm Personal Integration
+# 📟 GroupAlarm Personal-API Integration
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
