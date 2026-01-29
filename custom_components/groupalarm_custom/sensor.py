@@ -53,6 +53,7 @@ class GroupAlarmMainSensor(SensorEntity):
         self.coordinator = coordinator
         self._attr_name = "GroupAlarm Einsatz"
         self._attr_unique_id = f"ga_{coordinator.org_id}_main"
+        self._attr_icon = "mdi:alarm-light"
 
     @property
     def state(self):
@@ -75,6 +76,7 @@ class GroupAlarmMessageSensor(SensorEntity):
         self.coordinator = coordinator
         self._attr_name = "GroupAlarm Meldung"
         self._attr_unique_id = f"ga_{coordinator.org_id}_message"
+        self._attr_icon = "mdi:message-bulleted"
 
     @property
     def state(self):
@@ -90,6 +92,7 @@ class GroupAlarmStatusSensor(BinarySensorEntity):
         self._attr_name = "GroupAlarm Status"
         self._attr_unique_id = f"ga_{coordinator.org_id}_status"
         self._attr_device_class = BinarySensorDeviceClass.SAFETY
+        self._attr_icon = "mdi:fire-station"
 
     @property
     def is_on(self):
