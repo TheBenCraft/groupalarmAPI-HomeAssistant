@@ -1,7 +1,7 @@
 {
   "domain": "groupalarm_custom",
   "name": "GroupAlarm Custom",
-  "version": "1.0.0",
+  "version": "1.2.2",
   "documentation": "https://github.com/TheBenCraft/groupalarmAPI-HomeAssistant.git",
   "dependencies": [],
   "codeowners": ["@thebencraft"],
