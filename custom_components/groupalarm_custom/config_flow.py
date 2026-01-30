@@ -14,11 +14,15 @@ class GroupAlarmConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Erstellt den Eintrag in der UI
             return self.async_create_entry(title="GroupAlarm", data=user_input)
 
-        # Das Formular, das angezeigt wird
+        # Das Formular
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema({
                 vol.Required("token"): str,
                 vol.Required("org_id"): str,
+                # vol.All stellt sicher, dass es ein int ist und mindestens 5 Sekunden beträgt
+                vol.Optional("scan_interval", default=30): vol.All(
+                    vol.Coerce(int), vol.Range(min=15)
+                ),
             }),
         )

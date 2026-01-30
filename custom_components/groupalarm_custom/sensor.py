@@ -7,19 +7,28 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.util import dt as dt_util
 
 _LOGGER = logging.getLogger(__name__)
-SCAN_INTERVAL = timedelta(seconds=30)
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     """Setzt die Sensoren anhand der Konfiguration auf."""
     token = config_entry.data.get("token")
     org_id = config_entry.data.get("org_id")
+    
+    # Intervall aus der config_flow abrufen, Standard 30 Sek
+    scan_interval_seconds = config_entry.data.get("scan_interval", 30)
+    
+    # Das dynamische Scan-Intervall für diese Instanz festlegen
+    scan_interval = timedelta(seconds=int(scan_interval_seconds))
+    
     coordinator = GroupAlarmDataCoordinator(hass, token, org_id)
     
-    async_add_entities([
+    # Entities hinzufügen
+    entities = [
         GroupAlarmMainSensor(coordinator),
         GroupAlarmMessageSensor(coordinator),
         GroupAlarmStatusSensor(coordinator)
-    ], True)
+    ]
+    
+    async_add_entities(entities, True)
 
 class GroupAlarmDataCoordinator:
     """Zentraler Datenabruf."""

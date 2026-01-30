@@ -2,9 +2,12 @@
   "config": {
     "step": {
       "user": {
+        "title": "GroupAlarm Setup",
+        "description": "Please enter your credentials. Note: The recommended scan rate is between 15 and 30 seconds.",
         "data": {
-          "token": "Personal-Access-Token",
-          "org_id": "Organization-ID"
+          "token": "Personal Access Token",
+          "org_id": "Organization ID",
+          "scan_interval": "Scan Interval (Recommended: 15-30s)"
         }
       }
     }
