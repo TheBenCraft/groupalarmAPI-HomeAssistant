@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "GroupAlarm Einrichtung",
+        "description": "Gib deine Zugangsdaten ein. Das Scan-Intervall bestimmt, wie oft die API abgefragt wird.",
+        "data": {
+          "token": "Personal Access Token",
+          "org_id": "Organisation ID",
+          "scan_interval": "Update-Intervall (Sekunden)"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Update-Intervall (Empfohlen: 15-30 Sek.)"
+        }
+      }
+    }
+  }
+}

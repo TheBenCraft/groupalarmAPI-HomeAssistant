@@ -1,0 +1,10 @@
+{
+  "domain": "groupalarm_custom",
+  "name": "GroupAlarm Custom",
+  "version": "1.0.0",
+  "documentation": "https://github.com/TheBenCraft/groupalarmAPI-HomeAssistant.git",
+  "dependencies": [],
+  "codeowners": ["@thebencraft"],
+  "iot_class": "cloud_polling",
+  "config_flow": true
+}
