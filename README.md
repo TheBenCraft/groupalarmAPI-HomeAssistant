@@ -48,4 +48,4 @@ content: >
   **Einsatz:** {{ states('sensor.groupalarm_einsatz') }}
   
   **Meldung:**
-  {{ state_attr('sensor.groupalarm_einsatz', 'message') }}
+  {{ states('sensor.groupalarm_meldung') }}
