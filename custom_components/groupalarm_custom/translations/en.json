@@ -3,12 +3,45 @@
     "step": {
       "user": {
         "title": "GroupAlarm Setup",
-        "description": "Please enter your credentials. Recommended: Scan rate 15-30s, Alarm duration 20-120min.",
+        "description": "Enter your credentials. The scan interval defines how often the API is polled.",
         "data": {
           "token": "Personal Access Token",
-          "org_id": "Organization ID",
-          "scan_interval": "Scan Interval (Seconds)",
-          "alarm_duration": "Alarm Duration (Minutes)"
+          "org_id": "Organisation ID",
+          "user_id": "Your User ID (for feedback status)",
+          "scan_interval": "Update interval (seconds)",
+          "alarm_duration": "Alarm duration (minutes)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure GroupAlarm",
+        "description": "Update your credentials and settings.",
+        "data": {
+          "token": "Personal Access Token",
+          "org_id": "Organisation ID",
+          "user_id": "Your User ID (for feedback status)",
+          "scan_interval": "Update interval (seconds)",
+          "alarm_duration": "Alarm duration (minutes)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid token or organisation ID",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This integration is already configured.",
+      "reconfigure_successful": "Configuration updated successfully."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "GroupAlarm Settings",
+        "data": {
+          "user_id": "Your User ID",
+          "scan_interval": "Update interval (seconds)",
+          "alarm_duration": "Alarm duration (minutes)"
         }
       }
     }

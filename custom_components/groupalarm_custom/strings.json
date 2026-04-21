@@ -7,16 +7,41 @@
         "data": {
           "token": "Personal Access Token",
           "org_id": "Organisation ID",
-          "scan_interval": "Update-Intervall (Sekunden)"
+          "user_id": "Deine User-ID (für Rückmeldung)",
+          "scan_interval": "Update-Intervall (Sekunden)",
+          "alarm_duration": "Alarm-Dauer (Minuten)"
+        }
+      },
+      "reconfigure": {
+        "title": "GroupAlarm neu konfigurieren",
+        "description": "Passe deine Zugangsdaten und Einstellungen an.",
+        "data": {
+          "token": "Personal Access Token",
+          "org_id": "Organisation ID",
+          "user_id": "Deine User-ID (für Rückmeldung)",
+          "scan_interval": "Update-Intervall (Sekunden)",
+          "alarm_duration": "Alarm-Dauer (Minuten)"
         }
       }
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "invalid_auth": "Ungültiger Token oder Org-ID",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "abort": {
+      "already_configured": "Diese Integration ist bereits eingerichtet.",
+      "reconfigure_successful": "Konfiguration erfolgreich aktualisiert."
     }
   },
   "options": {
     "step": {
       "init": {
+        "title": "GroupAlarm Einstellungen anpassen",
         "data": {
-          "scan_interval": "Update-Intervall (Empfohlen: 15-30 Sek.)"
+          "user_id": "Deine User-ID",
+          "scan_interval": "Update-Intervall (Sekunden)",
+          "alarm_duration": "Alarm-Dauer (Minuten)"
         }
       }
     }
