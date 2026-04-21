@@ -3,7 +3,7 @@
 Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAlarm](https://www.groupalarm.com) direkt in Home Assistant zu empfangen. Die Integration konzentriert sich auf den Endpunkt `/alarms/alarmed`, um nur die Einsätze anzuzeigen, für die du persönlich mitalarmiert wurdest.
 
 ## Features
-- 🚀 **Automatisches Polling:** Konfigurierbares Abfrageintervall (Standard: 30 Sekunden, Minimum: 15 Sekunden)
+- 🚀 **Echtzeit-nah:** Konfigurierbares Abfrageintervall (Standard: 30 Sekunden, Minimum: 15 Sekunden)
 - 🚨 **Einsatz:** Zeigt das Alarmstichwort des aktuellen Einsatzes an
 - 📬 **Alarmtext:** Zeigt die vollständige Einsatzmeldung an
 - 🟢 **Status:** Zeigt ob ein Einsatz gerade aktiv ist (`Aktiv` / `Inaktiv`)
