@@ -40,8 +40,7 @@ Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAl
 | **Alarm-Dauer** | Wie lange ein Alarm als „Aktiv" gilt, in Minuten |
 
 ### Einstellungen nachträglich ändern
-- **„Konfigurieren"** — ändert User-ID, Update-Intervall und Alarm-Dauer
-- **„Neu konfigurieren"** (drei Punkte → Neu konfigurieren) — ändert alle Felder inkl. Token und Org-ID
+- **„Neu konfigurieren"** (drei Punkte → Neu konfigurieren)
 
 ## Sensoren
 
