@@ -111,6 +111,11 @@ class GroupAlarmMainSensor(GroupAlarmBaseSensor):
         alarms = self.coordinator.data.get("alarms", []) if self.coordinator.data else []
         return alarms[0].get("event", {}).get("name", "Kein Einsatz") if alarms else "Kein Einsatz"
 
+    @property
+    def extra_state_attributes(self):
+        """Gibt den kompletten API-Output als Attribut zurück."""
+        return {"api_response": self.coordinator.data if self.coordinator.data else {}}
+
 
 class GroupAlarmMessageSensor(GroupAlarmBaseSensor):
     """Zeigt die Meldung des aktuellen Alarms."""
@@ -146,6 +151,14 @@ class GroupAlarmFeedbackSensor(GroupAlarmBaseSensor):
         return "mdi:account-question"
 
     @property
+    def capability_attributes(self):
+        """Gibt die ENUM-Optionen explizit als Capability zurück."""
+        attrs = super().capability_attributes or {}
+        attrs = dict(attrs)
+        attrs["options"] = self._attr_options
+        return attrs
+
+    @property
     def native_value(self):
         if not self.user_id or self.user_id == "0":
             return "ID fehlt"
@@ -154,14 +167,14 @@ class GroupAlarmFeedbackSensor(GroupAlarmBaseSensor):
         if not alarms:
             return "Kein Alarm"
 
-        for r in alarms[0].get("responses", []):
-            uid = r.get("user", {}).get("id") or r.get("userId")
-            if str(uid) == self.user_id:
-                status = r.get("status")
-                confirmed = r.get("confirmed")
-                if status == 1 or confirmed is True:
+        for r in alarms[0].get("feedback", []):
+            if str(r.get("userID")) == self.user_id:
+                state = r.get("state", "")
+                if state == "WAITING":
+                    return "Ausstehend"
+                if r.get("feedback") is True:
                     return "Zugesagt"
-                if status == 2 or confirmed is False:
+                if r.get("feedback") is False:
                     return "Abgelehnt"
 
         return "Ausstehend"
