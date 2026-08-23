@@ -1,6 +1,8 @@
 # GroupAlarm API Integration für Home Assistant
 
-Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAlarm](https://www.groupalarm.com) direkt in Home Assistant zu empfangen. Die Integration konzentriert sich auf den Endpunkt `/alarms/alarmed`, um nur die Einsätze anzuzeigen, für die du persönlich mitalarmiert wurdest.
+Diese Custom Integration ermöglicht es, persönliche Alarmierungen von [GroupAlarm](https://www.groupalarm.com) direkt in Home Assistant zu empfangen. Die Integration konzentriert sich auf den Endpunkt `/alarms/alarmed`, um nur die Einsätze anzuzeigen, für die du persönlich mitalarmiert wurdest. Organisationsübergreifend, also auch wenn du in mehreren Organisationen aktiv bist.
+
+> **Hinweis zur Organisation ID:** Die Org-ID wird nicht zur Filterung verwendet, sondern ist technisch notwendig damit die GroupAlarm API korrekt antwortet. Alle persönlichen Alarme aus allen deinen Organisationen werden trotzdem angezeigt — du musst also nur eine beliebige deiner Org-IDs eintragen.
 
 ## Features
 - 🚀 **Echtzeit-nah:** Konfigurierbares Abfrageintervall (Standard: 30 Sekunden, Minimum: 15 Sekunden)
